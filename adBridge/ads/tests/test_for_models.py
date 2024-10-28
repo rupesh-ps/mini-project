@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from ..models import Profile, Category, Ad, Message
+from ..models import Profile, Category, Ad, Message, AdImages
 
 class ProfileModelTest(TestCase):
     def setUp(self):
@@ -35,7 +35,6 @@ class AdModelTest(TestCase):
         self.ad = Ad.objects.create(user=self.profile,
                                     category=self.category,
                                     title='Test Ad Title',
-                                    image='test_image.jpg',
                                     tags = ['test'],
                                     location='Test Location', 
                                     postal_code=12345, 
@@ -76,7 +75,6 @@ class MessageModelTest(TestCase):
         self.ad = Ad.objects.create(user=self.profile,
                                     category=self.category,
                                     title='Test Ad Title',
-                                    image='test_image.jpg',
                                     tags = ['test'],
                                     location='Test Location', 
                                     postal_code=12345, 
@@ -86,13 +84,35 @@ class MessageModelTest(TestCase):
                                     contact_email='testuser@example.com', 
                                     contact_phone='1234567890',
                                     posted_at='2021-01-01 12:00:00')
-        self.message = Message.objects.create(ad=self.ad, message='Test Message', sender_email='testuser@example.com')
+        self.message = Message.objects.create(ad=self.ad, message='Test Message', user=self.profile)
 
     def test_message_ad_relation(self):
-        self.message = Message.objects.create(ad=self.ad, message='Test Message', sender_email='testuser@example.com')
         self.assertEqual(self.message.ad, self.ad)
 
     def test_message_str(self):
-        self.assertEqual(str(self.message), 'Message from testuser@example.com regarding Test Ad Title')
+        self.assertEqual(str(self.message), 'Message from testuser regarding Test Ad Title')
 
+class AdImagesTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user('testuser', 'test123')
+        self.profile = Profile.objects.create(user=self.user, phone="1234567890", email="testuser@example.com")
+        self.category = Category.objects.create(name='Test Job Category', type='job')
+        self.ad = Ad.objects.create(user=self.profile,
+                                    category=self.category,
+                                    title='Test Ad Title',
+                                    tags = ['test'],
+                                    location='Test Location', 
+                                    postal_code=12345, 
+                                    description='Test Ad Description', 
+                                    show_contact=True, 
+                                    price=100.00,
+                                    contact_email='testuser@example.com', 
+                                    contact_phone='1234567890',
+                                    posted_at='2021-01-01 12:00:00')
+        self.media = AdImages.objects.create(ad=self.ad, image='test_image.jpg', image_caption='Test Caption')
 
+    def test_ad_image_relation(self):
+        self.assertEqual(self.media.ad, self.ad)
+
+    def test_media_str(self):
+        self.assertEqual(str(self.media), "Image for Test Ad Title with caption: Test Caption")
