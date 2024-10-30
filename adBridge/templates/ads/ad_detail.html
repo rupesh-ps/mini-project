@@ -6,16 +6,34 @@
         <h1 class="text-2xl font-bold mb-2">{{ ad.title }}</h1>
         <p class="mb-4">{{ ad.description }}</p>
         
-        {% if ad.show_contact %}
-            <p>Contact Email: {{ ad.contact_email }}</p>
-            <p>Contact Phone: {{ ad.contact_phone }}</p>
+        {% if ad.price %}
+            <p class="font-bold">Price: ${{ ad.price }}</p>
         {% endif %}
+
+        <p class="mb-2"><strong>Location:</strong> {{ ad.location }}</p>
+        <p class="mb-2"><strong>Postal Code:</strong> {{ ad.postal_code }}</p>
+        <p class="mb-2"><strong>Posted On:</strong> {{ ad.posted_at|date:"F j, Y" }}</p>
         
-        <p class="font-bold"> 
-            {% if ad.price %}
-                Price: ${{ ad.price }}    
+        {% if ad.show_contact %}
+        <h3 class="mt-4 font-semibold">Contact Information</h3>
+        <p><strong>Email:</strong> {{ ad.contact_email }}</p>
+        <p><strong>Phone:</strong> {{ ad.contact_phone }}</p>
+        {% else %}
+            <p class="text-gray-500">Contact information is not available.</br>Send a message to seller</p>
             {% endif %}
-        </p>
+
+        {% if ad.tags.all %}
+            <h3 class="mt-4 font-semibold">Tags</h3>
+            <ul class="list-disc pl-5">
+                {% for tag in ad.tags.all %}
+                    <li>{{ tag.name }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                
+        <p class="mt-4"><strong>Category:</strong> {{ ad.category.name }}</p>
+        <p class="mt-2"><strong>Ad Posted By:</strong> {{ ad.user.user.username }}</p>
+        <p class="flex justify-end gap-1"><strong>Views:</strong> {{ ad.view }}</p>
     </div>
 </div>
 {% endblock %}
