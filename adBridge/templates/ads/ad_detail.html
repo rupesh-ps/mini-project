@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-2">{{ ad.title }}</h1>
+        <p class="mb-4">{{ ad.description }}</p>
+        
+        {% if ad.show_contact %}
+            <p>Contact Email: {{ ad.contact_email }}</p>
+            <p>Contact Phone: {{ ad.contact_phone }}</p>
+        {% endif %}
+        
+        <p class="font-bold"> 
+            {% if ad.price %}
+                Price: ${{ ad.price }}    
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

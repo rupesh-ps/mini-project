@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AdBridge - Your Marketplace Awaits{% endblock title %}</title>
+    <script src="https://cdn.tailwindcss.com"></script></head>
+<body class="bg-gray-100">
+
+    <div class="flex h-screen">
+        <aside class="w-64 bg-white shadow-lg">
+            <div class="p-6">
+                <a href="{% url 'homepage' %}" class="block p-2 text-gray-800 hover:underline hover:underline-offset-2">
+                    <h1 class="text-3xl font-bold text-center text-blue-600">AdBridge</h1>
+                </a>
+                <p class="mt-1 text-center text-gray-600">Your bridge to buying and selling - anything!</p>
+                <nav class="mt-8">
+                    <ul>
+                        <li><a href="{% url 'category-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Categories</a></li>
+                        <li><a href="{% url 'ad-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Ads</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <main class="flex-1 p-8 overflow-y-auto">
+        {% block content %}
+            <header class="my-7">
+                <h2 class="text-5xl font-bold text-blue-600">Welcome to AdBridge!</h2>
+                <p class="mt-2 text-lg text-gray-700">The ultimate platform for seamless connections between buyers and sellers.</p>
+            </header>
+            
+            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                <h3 class="text-3xl font-semibold mb-4">Discover What We Offer</h3>
+                <ul class="mt-4 space-y-3 text-gray-600 list-none">
+                    <li>🌟 <b>Diverse Categories:</b> Explore an extensive range of categories tailored to your needs.</li>
+                    <li>🔍 <b>Advanced Search:</b> Effortlessly find what you're looking for with our user-friendly search options.</li>
+                    <li>💬 <b>Messaging System:</b> Connect directly with sellers through our secure messaging platform.</li>
+                    <li>💲 <b>Secure Transactions:</b> Enjoy peace of mind with our safe posting and inquiry processes.</li>
+                    <li>📱 <b>Intuitive Design:</b> Navigate easily with our sleek and responsive user interface.</li>
+                </ul>
+            </section>
+        {% endblock content %}
+        </main>
+    </div>
+
+</body>
+</html>
