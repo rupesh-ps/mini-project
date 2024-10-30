@@ -28,6 +28,17 @@ class AdListView(ListView):
     context_object_name = 'ads'
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = queryset.filter(
+                    title__icontains=search_query
+            ).union(
+                queryset.filter(description__icontains=search_query)
+            )
+        return queryset
+
 class AdDetailView(DetailView):
     model = Ad
     template_name = 'ads/ad_detail.html'

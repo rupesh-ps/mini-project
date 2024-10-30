@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold mb-4">Categories</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for category in categories %}
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:outline">
                 <a href="{% url 'category-detail' category.id %}" class="block p-4 hover:bg-gray-100">
                     <h2 class="text-xl font-semibold">{{ category.name }}</h2>
                 </a>

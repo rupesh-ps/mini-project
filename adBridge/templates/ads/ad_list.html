@@ -3,6 +3,14 @@
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Ads</h1>
+    
+    <div class="mb-4">
+        <form method="GET" class="flex space-x-2">
+            <input type="text" name="search" placeholder="Search Ads..." class="border rounded-lg px-4 py-2 flex-1">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+        </form>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {% for ad in ads %}
         <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:bg-gray-100 hover:outline">
@@ -18,7 +26,13 @@
             </a>
         </div>
         {% empty %}
-        <p class="text-gray-500">No ads available in this category.</p>
+        <p class="text-gray-500">
+            {% if request.GET.search %}
+                No ads found for "{{ request.GET.search }}".
+            {% else %}
+                No ads available in this category.
+            {% endif %}
+        </p>        
         {% endfor %}
     </div>
 </div>

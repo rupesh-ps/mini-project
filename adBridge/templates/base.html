@@ -40,6 +40,22 @@
                     <li>📱 <b>Intuitive Design:</b> Navigate easily with our sleek and responsive user interface.</li>
                 </ul>
             </section>
+            
+            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                <h3 class="text-3xl font-semibold mb-4">Join the Community!</h3>
+                <p class="mt-4 text-gray-600">
+                    Sign up today to start posting ads or browsing listings that fit your lifestyle. Whether you’re searching for a job, selling your furniture, or hunting for rental properties, AdBridge is here to facilitate your journey.
+                </p>
+                <a href="/" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
+            </section>
+
+            <section class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-3xl font-semibold mb-4">Why Choose Us?</h3>
+                <p class="mt-4 text-gray-600">
+                    AdBridge connects you with a vibrant community of buyers and sellers, ensuring that your needs are met with the utmost satisfaction. Our platform is designed with you in mind, prioritizing security, accessibility, and user experience.
+                </p>
+                <a href="{% url 'ad-list' %}" class="mt-4 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition duration-300">Explore Ads</a>
+            </section>
         {% endblock content %}
         <div class="flex justify-center mt-28">
             {% include 'pagination.html' %}
