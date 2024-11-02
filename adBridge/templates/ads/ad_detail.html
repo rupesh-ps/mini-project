@@ -5,7 +5,24 @@
     <div class="bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-2xl font-bold mb-2">{{ ad.title }}</h1>
         <p class="mb-4">{{ ad.description }}</p>
-        
+        <!-- Carousel -->
+        <div id="adCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in ad.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" alt="{{ ad.title }}" class="d-block w-100 rounded-lg mb-4" />
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#adCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#adCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
         {% if ad.price %}
             <p class="font-bold">Price: ${{ ad.price }}</p>
         {% endif %}
