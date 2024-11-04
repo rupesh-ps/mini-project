@@ -95,3 +95,28 @@ class AdDetailViewTest(BaseTestCase):
     def test_non_existent_ad_detail(self):
         response = self.client.get(reverse('ad-detail', args=[999]))
         self.assertEqual(response.status_code, 404)
+
+
+class FeaturedViewTest(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+        self.ad3 = Ad.objects.create(title='Ad 3', description='Description 3', category=self.category1, postal_code=123456, user=self.profile, view=5)
+        self.ad4 = Ad.objects.create(title='Ad 4', description='Description 4', category=self.category1, postal_code=123456, user=self.profile, view=2)
+        self.ad5 = Ad.objects.create(title='Ad 5', description='Description 5', category=self.category1, postal_code=123456, user=self.profile, view=10)
+
+    def test_featured_ads_view(self):
+        response = self.client.get(reverse('featured-ads'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'ads/featured_ads.html')
+        
+        self.assertQuerySetEqual(
+            response.context['featured_ads'],
+            [self.ad3, self.ad5], 
+            ordered=False
+        )
+
+    def test_featured_ads_empty(self):
+        Ad.objects.all().delete()
+        response = self.client.get(reverse('featured-ads'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No featured ads available at the moment.")
