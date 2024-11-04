@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Featured Ads</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for ad in featured_ads %}
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300">
+                <h2 class="font-semibold text-lg text-gray-800">
+                    <a href="{% url 'ad-detail' ad.id %}" class="hover:text-blue-600">{{ ad.title }}</a>
+                </h2>
+                <p class="mt-2 text-gray-600">{{ ad.description|truncatewords:20 }}</p>
+                <p class="mt-2 text-gray-500">Category: <span class="font-medium">{{ ad.category.name }}</span></p>
+                <p class="mt-1 text-gray-400">Views: <span class="font-medium">{{ ad.view }}</span></p>
+                <a href="{% url 'ad-detail' ad.id %}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">View Details</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

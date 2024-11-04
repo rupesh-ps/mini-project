@@ -43,3 +43,20 @@ class AdDetailView(DetailView):
     model = Ad
     template_name = 'ads/ad_detail.html'
     context_object_name = 'ad'
+
+    def get(self, request, *args, **kwargs):
+        ad = self.get_object()
+        ad.view += 1
+        ad.save(update_fields=['view'])
+
+        return super().get(request, *args, **kwargs)
+
+class FeaturedView(ListView):
+    model = Ad
+    template_name = 'ads/featured_ads.html'
+    context_object_name = 'featured_ads'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Ad.objects.all().filter(view__gte=3).order_by('-view')[:10]
+
