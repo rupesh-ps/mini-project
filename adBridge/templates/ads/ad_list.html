@@ -33,9 +33,9 @@
         {% empty %}
         <p class="text-gray-500">
             {% if request.GET.search %}
-                No ads found for "{{ request.GET.search }}".
+                No ads found for your search: '{{ request.GET.search }}'.
             {% else %}
-                No ads available in this category.
+                No ads available.
             {% endif %}
         </p>        
         {% endfor %}
