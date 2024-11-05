@@ -18,9 +18,27 @@
                 <p class="mt-1 text-center text-gray-600">Your bridge to buying and selling - anything!</p>
                 <nav class="mt-8">
                     <ul class="space-y-3">
-                        <li><a href="{% url 'signup' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Sign Up</a></li>
+                        
+                        {% if user.is_authenticated %}
+                            <li class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">{{ user.username }}</li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Log in</a></li> 
+                            <li><a href="{% url 'signup' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Sign Up</a></li> 
+                        {% endif %}
+                            
                         <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
                         <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
+                        
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'logout' %}" method="post" >
+                            {% csrf_token %}
+                            <button type="submit" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
+                                <a href="{% url 'logout' %}" >Log out</a> 
+                            </button>
+                        </form>    
+                        
+                        {% endif %}
+                            
                     </ul>
                 </nav>
             </div>
@@ -78,7 +96,7 @@
                 <p class="mt-4 text-gray-600">
                     Sign up today to start posting ads or browsing listings that fit your lifestyle. Whether you’re searching for a job, selling your furniture, or hunting for rental properties, AdBridge is here to facilitate your journey.
                 </p>
-                <a href="/" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
+                <a href="{% url 'signup' %}" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
             </section>
 
             <section class="bg-white p-6 rounded-lg shadow-lg">
