@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold mb-4">{{ category.name }}</h1>
+    <p class="text-gray-600 mb-6">Browse ads available in this category.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {% for ad in ads %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:bg-gray-100 hover:scale-105 hover:outline">
+            <a href="{% url 'ad-detail' ad.id %}" class="block p-4">
+                {% if ad.images.first %}
+                <img src="{{ ad.images.first.image.url }}" alt="{{ ad.images.first.image_caption }}" class="w-full object-cover mb-4">
+                {% endif %}
+                <h2 class="text-xl font-semibold">{{ ad.title }}</h2>
+                <p class="text-gray-600">{{ ad.description|truncatewords:20 }}</p>
+                <p class="text-lg font-bold">
+                    {% if ad.price %}
+                        Price: ${{ ad.price }}    
+                    {% endif %}
+                </p>
+                <p class="text-sm text-gray-500">Posted by {{ ad.user.user.username }} on {{ ad.posted_at|date:"F j, Y" }}</p>
+            </a>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 col-span-full">No ads available in this category.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-6">
+        <a href="{% url 'ad-list' %}" class="text-blue-600 hover:underline">View all ads</a>
+    </div>
+</div>
+{% endblock %}

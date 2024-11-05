@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AdBridge - Your Marketplace Awaits{% endblock title %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body class="bg-gray-100">
+    
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-white shadow-lg">
+            <div class="p-6">
+                <a href="{% url 'homepage' %}" class="block p-2 text-gray-800 hover:underline hover:underline-offset-2">
+                    <h1 class="text-3xl font-bold text-center text-blue-600">AdBridge</h1>
+                </a>
+                <p class="mt-1 text-center text-gray-600">Your bridge to buying and selling - anything!</p>
+                <nav class="mt-8">
+                    <ul>
+                        <li><a href="{% url 'category-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Categories</a></li>
+                        <li><a href="{% url 'ad-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Ads</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <main class="flex-1 p-8 overflow-y-auto">
+        {% block content %}
+            <div x-data="{
+                    bannerVisible: false,
+                    bannerVisibleAfter: 300
+                }" 
+                x-show="bannerVisible"
+                x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="translate-y-10"
+                x-transition:enter-end="translate-y-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="translate-y-0"
+                x-transition:leave-end="translate-y-10"
+                x-init="
+                    setTimeout(()=>{ bannerVisible = true }, bannerVisibleAfter);
+                "
+                class="fixed bottom-0 left-0 w-full h-auto py-2 duration-300 ease-out bg-black shadow-sm sm:py-0 sm:h-10" x-cloak>
+                <div class="flex items-center justify-between w-full h-full px-3 mx-auto max-w-7xl ">
+                    <a href="{% url 'featured-ads' %}" class="flex flex-col w-full h-full text-xs leading-6 text-white duration-150 ease-out sm:flex-row sm:items-center opacity-80 hover:opacity-100">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M10.1893 8.12241C9.48048 8.50807 9.66948 9.5633 10.4691 9.68456L13.5119 10.0862C13.7557 10.1231 13.7595 10.6536 13.7968 10.8949L14.2545 13.5486C14.377 14.3395 15.4432 14.5267 15.8333 13.8259L17.1207 11.3647C17.309 11.0046 17.702 10.7956 18.1018 10.8845C18.8753 11.1023 19.6663 11.3643 20.3456 11.4084C21.0894 11.4567 21.529 10.5994 21.0501 10.0342C20.6005 9.50359 20.0352 8.75764 19.4669 8.06623C19.2213 7.76746 19.1292 7.3633 19.2863 7.00567L20.1779 4.92643C20.4794 4.23099 19.7551 3.52167 19.0523 3.82031L17.1037 4.83372C16.7404 4.99461 16.3154 4.92545 16.0217 4.65969C15.3919 4.08975 14.6059 3.39451 14.0737 2.95304C13.5028 2.47955 12.6367 2.91341 12.6845 3.64886C12.7276 4.31093 13.0055 5.20996 13.1773 5.98734C13.2677 6.3964 13.041 6.79542 12.658 6.97364L10.1893 8.12241Z" stroke="currentColor" stroke-width="1.5"></path><path d="M12.1575 9.90759L3.19359 18.8714C2.63313 19.3991 2.61799 20.2851 3.16011 20.8317C3.70733 21.3834 4.60355 21.3694 5.13325 20.8008L13.9787 11.9552" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 6.25V3.75M3.75 5H6.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 20.25V17.75M16.75 19H19.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                            <strong class="font-semibold">Featured Ads</strong><span class="hidden w-px h-4 mx-3 rounded-full sm:block bg-neutral-700"></span>
+                        </span>
+                        <span class="block pt-1 pb-2 leading-none sm:inline sm:pt-0 sm:pb-0">Wanna buy something? Sell something? - See our featured ads!</span>
+                    </a>
+                    <button @click="bannerVisible=false; setTimeout(()=>{ bannerVisible = true }, 1000);" class="flex items-center flex-shrink-0  translate-x-1 ease-out duration-150 justify-center w-6 h-6 p-1.5 text-white rounded-full hover:bg-neutral-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <header class="my-7">
+                <h2 class="text-5xl font-bold text-blue-600">Welcome to AdBridge!</h2>
+                <p class="mt-2 text-lg text-gray-700">The ultimate platform for seamless connections between buyers and sellers.</p>
+            </header>
+            
+            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                <h3 class="text-3xl font-semibold mb-4">Discover What We Offer</h3>
+                <ul class="mt-4 space-y-3 text-gray-600 list-none">
+                    <li>🌟 <b>Diverse Categories:</b> Explore an extensive range of categories tailored to your needs.</li>
+                    <li>🔍 <b>Advanced Search:</b> Effortlessly find what you're looking for with our user-friendly search options.</li>
+                    <li>💬 <b>Messaging System:</b> Connect directly with sellers through our secure messaging platform.</li>
+                    <li>💲 <b>Secure Transactions:</b> Enjoy peace of mind with our safe posting and inquiry processes.</li>
+                    <li>📱 <b>Intuitive Design:</b> Navigate easily with our sleek and responsive user interface.</li>
+                </ul>
+            </section>
+
+            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
+                <h3 class="text-3xl font-semibold mb-4">Join the Community!</h3>
+                <p class="mt-4 text-gray-600">
+                    Sign up today to start posting ads or browsing listings that fit your lifestyle. Whether you’re searching for a job, selling your furniture, or hunting for rental properties, AdBridge is here to facilitate your journey.
+                </p>
+                <a href="/" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
+            </section>
+
+            <section class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-3xl font-semibold mb-4">Why Choose Us?</h3>
+                <p class="mt-4 text-gray-600">
+                    AdBridge connects you with a vibrant community of buyers and sellers, ensuring that your needs are met with the utmost satisfaction. Our platform is designed with you in mind, prioritizing security, accessibility, and user experience.
+                </p>
+                <a href="{% url 'ad-list' %}" class="mt-4 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition duration-300">Explore Ads</a>
+            </section>
+        {% endblock content %}
+        <div class="flex justify-center mt-28">
+            {% include 'pagination.html' %}
+        </div>
+        </main>
+    </div>
+</body>
+</html>

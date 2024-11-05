@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-4">Categories</h1>
+
+    {% if categories %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for category in categories %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:outline">
+                    <a href="{% url 'category-detail' category.id %}" class="block p-4 hover:bg-gray-100" aria-label="View details for {{ category.name }}">
+                        <h2 class="text-xl font-semibold">{{ category.name }}</h2>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-gray-100 rounded-lg p-4 text-center">
+            <p class="text-gray-500">No categories available at the moment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
