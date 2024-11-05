@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.urls import path
 from ads import views
+from accounts import views as accounts_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePageView.as_view(), name='homepage'),
+    path("signup/", accounts_views.signup, name="signup"),
     path('categories/', views.CategoryListView.as_view(), name='category-list'),
     path('category/<int:pk>/', views.CategoryDetailView.as_view(), name='category-detail'),
     path("ads/", views.AdListView.as_view(), name="ad-list"),

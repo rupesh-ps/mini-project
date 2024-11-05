@@ -17,9 +17,10 @@
                 </a>
                 <p class="mt-1 text-center text-gray-600">Your bridge to buying and selling - anything!</p>
                 <nav class="mt-8">
-                    <ul>
-                        <li><a href="{% url 'category-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Categories</a></li>
-                        <li><a href="{% url 'ad-list' %}" class="block p-4 text-gray-800 hover:bg-gray-200 hover:rounded-lg">Ads</a></li>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'signup' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Sign Up</a></li>
+                        <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
+                        <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
                     </ul>
                 </nav>
             </div>
