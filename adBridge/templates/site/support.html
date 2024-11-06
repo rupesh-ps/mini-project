@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="my-8 text-center">
+        <h2 class="text-4xl font-extrabold text-blue-900 mb-2">Support</h2>
+        <p class="text-lg text-black">We're here to help! Find answers to common questions or reach out to us for further assistance.</p>
+    </header>
+
+    <section class="bg-white p-8 rounded-lg shadow-lg mb-8">
+        <h3 class="text-3xl font-semibold mb-6">Frequently Asked Questions (FAQs)</h3>
+        <ul class="space-y-6 text-gray-700">
+            <li class="border-b pb-4">
+                <h4 class="text-xl font-semibold">How do I post an ad?</h4>
+                <p class="mt-2 text-gray-600">To post an ad, simply log in to your account and navigate to the "Post an Ad" section. Fill in the required details, such as the title, description, and images of your item, and then click "Submit." Your ad will be live immediately.</p>
+            </li>
+            <li class="border-b pb-4">
+                <h4 class="text-xl font-semibold">How do I contact a seller?</h4>
+                <p class="mt-2 text-gray-600">You can contact a seller directly through the messaging system once you're logged in. Simply click on the "Message" button on any ad, and you can start a conversation with the seller.</p>
+            </li>
+            <li class="border-b pb-4">
+                <h4 class="text-xl font-semibold">Is it safe to buy and sell on AdBridge?</h4>
+                <p class="mt-2 text-gray-600">Yes, AdBridge takes security seriously. We offer a secure platform for posting ads and communicating with sellers. We encourage users to meet in safe, public places and exercise caution when completing transactions.</p>
+            </li>
+            <li class="border-b pb-4">
+                <h4 class="text-xl font-semibold">How can I reset my password?</h4>
+                <p class="mt-2 text-gray-600">If you've forgotten your password or want to change it, go to the login page and click on the "Forgot Password?" link. You'll be asked to enter your email address, and a link to reset your password will be sent to your inbox.</p>
+            </li>
+            <li class="border-b pb-4">
+                <h4 class="text-xl font-semibold">Can I edit or delete my ad after posting?</h4>
+                <p class="mt-2 text-gray-600">Yes, you can edit or delete your ad at any time by going to your account page and navigating to the "My Ads" section. There, you can manage your active ads.</p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="bg-white p-8 rounded-lg shadow-lg mb-8">
+        <h3 class="text-3xl font-semibold mb-6">Contact Us</h3>
+        <p class="text-gray-700">
+            If you have any further questions or need additional support, feel free to reach out to our support team.
+        </p>
+        <p class="mt-4 text-lg text-gray-700">
+            You can contact us via email at <a href="mailto:support@adbridge.com" class="text-blue-600 hover:underline">support@adbridge.com</a> or use the contact form below.
+        </p>
+
+        <div class="mt-6 bg-gray-50 p-8 rounded-lg border border-gray-200">
+            <h4 class="text-2xl font-semibold mb-4">Send Us a Message</h4>
+            <form method="post" action="{% url 'support' %}" class="space-y-4">
+                {% csrf_token %}
+                
+                {% include 'includes/form.html' %}
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300">
+                    Submit
+                </button>
+            </form>
+            <p class="mt-4 text-gray-600 text-sm">If you need help, please fill out the form above, and we'll get back to you as soon as possible.</p>
+        </div>
+    </section>
+{% endblock %}
