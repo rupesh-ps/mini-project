@@ -130,8 +130,48 @@
             </div>
             
             <header class="my-7">
-                <h2 class="text-5xl font-bold text-blue-600">Welcome to AdBridge!</h2>
-                <p class="mt-2 text-lg text-gray-700">The ultimate platform for seamless connections between buyers and sellers.</p>
+                <h1 x-data="{
+                    startingAnimation: { opacity: 0, y: 50, rotation: '25deg' },
+                    endingAnimation: { opacity: 1, y: 0, rotation: '0deg', stagger: 0.02, duration: 0.7, ease: 'back' },
+                    addCNDScript: true,
+                    splitCharactersIntoSpans(element) {
+                        text = element.innerHTML;
+                        modifiedHTML = [];
+                        for (var i = 0; i < text.length; i++) {
+                            attributes = '';
+                            if(text[i].trim()){ attributes = 'class=\'inline-block\''; }
+                            modifiedHTML.push('<span ' + attributes + '>' + text[i] + '</span>');
+                        }
+                        element.innerHTML = modifiedHTML.join('');
+                    },
+                
+                    addScriptToHead(url) {
+                        script = document.createElement('script');
+                        script.src = url;
+                        document.head.appendChild(script);
+                    },
+                    animateText() {
+                        $el.classList.remove('invisible');
+                        gsap.fromTo($el.children, this.startingAnimation, this.endingAnimation);
+                    }
+                }"
+                x-init="
+                    splitCharactersIntoSpans($el);
+                    if(addCNDScript){
+                        addScriptToHead('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js');
+                    }
+                    gsapInterval2 = setInterval(function(){
+                        if(typeof gsap !== 'undefined'){
+                            animateText();
+                            clearInterval(gsapInterval2);
+                        }
+                    }, 5);
+                "
+                class="invisible block pb-2 overflow-hidden text-5xl font-bold text-blue-900 custom-font"
+                >
+                Welcome to AdBridge!
+                </h1>
+                <p class="mt-2 text-xl text-black">The ultimate platform for seamless connections between buyers and sellers.</p>
             </header>
             
             <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
@@ -153,7 +193,7 @@
                 <a href="{% url 'signup' %}" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
             </section>
 
-            <section class="bg-white p-6 rounded-lg shadow-lg">
+            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
                 <h3 class="text-3xl font-semibold mb-4">Why Choose Us?</h3>
                 <p class="mt-4 text-gray-600">
                     AdBridge connects you with a vibrant community of buyers and sellers, ensuring that your needs are met with the utmost satisfaction. Our platform is designed with you in mind, prioritizing security, accessibility, and user experience.
