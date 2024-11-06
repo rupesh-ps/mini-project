@@ -17,6 +17,14 @@ urlpatterns = [
     path("ads/", views.AdListView.as_view(), name="ad-list"),
     path('ad/<int:pk>/', views.AdDetailView.as_view(), name='ad-detail'),
     path('featured', views.FeaturedView.as_view(), name="featured-ads"),
+    path('reset/', auth_views.PasswordResetView.as_view(
+        template_name='accounts/password_reset.html',
+        email_template_name='accounts/password_reset_email.html',
+        subject_template_name='accounts/password_reset_subject.txt'
+    ), name='reset_password'),
+    path('reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='accounts/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/complete/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
 ]
 
 if settings.DEBUG:
