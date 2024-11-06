@@ -3,6 +3,7 @@ from django.urls import path
 from ads import views
 from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,6 +32,12 @@ urlpatterns = [
     path('reset/complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name='accounts/password_reset_complete.html'
     ), name='password_reset_complete'),
+    path('settings/password/', login_required(auth_views.PasswordChangeView.as_view(
+        template_name='accounts/password_change.html')),
+        name='password_change'),
+    path('settings/password/done/', login_required(auth_views.PasswordChangeDoneView.as_view(
+        template_name='accounts/password_change_done.html')),
+        name='password_change_done'),
 ]
 
 if settings.DEBUG:

@@ -15,6 +15,7 @@ class UserAuthTests(TestCase):
         self.password_reset_url = reverse('reset_password')
         self.password_reset_done_url = reverse('password_reset_done')
         self.password_reset_complete_url = reverse('password_reset_complete')
+        self.password_change_url = reverse('password_change')
         self.homepage_url = reverse('homepage')
 
         self.user_data = {
@@ -118,3 +119,28 @@ class UserAuthTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'base.html')
 
+    def test_access_protected_view_requires_login(self):
+        """Test that an unauthenticated user is redirected to login."""
+        self.client.logout()
+        response = self.client.get(self.password_change_url)
+        self.assertRedirects(response, f"{self.login_url}?next={self.password_change_url}")
+
+    def test_password_change_page_access(self):
+        """Test that the password change page is accessible."""
+        
+        response = self.client.get(self.password_change_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/password_change.html')
+
+    def test_password_change_form_valid(self):
+        """Test changing the user's password."""
+        
+        new_password = 'newpassword123'
+        response = self.client.post(self.password_change_url, {
+            'old_password': self.user_data['password'],
+            'new_password1': new_password,
+            'new_password2': new_password,
+        })
+        self.assertRedirects(response, '/settings/password/done/')
+        user = User.objects.get(username=self.user_data['username'])
+        self.assertTrue(user.check_password(new_password))
