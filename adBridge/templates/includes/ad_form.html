@@ -35,7 +35,7 @@
         
         <!-- Field Container with Conditional Classes for Error States -->
         <div :class="{'border-red-500': $refs.{{ field.id_for_label }}.classList.contains('error') }" class="relative">
-            {% include "ad_form_logic.html" %}
+            {% include "includes/ad_form_logic.html" %}
             {% if field.help_text %}
                 <small class="text-gray-500 text-sm">{{ field.help_text }}</small>
             {% endif %}

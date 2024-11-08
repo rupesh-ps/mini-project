@@ -5,6 +5,8 @@ from django import forms
 from .models import Ad
 from django.forms import ValidationError
 from django.utils import timezone
+from datetime import datetime
+
 
 class AdForm(forms.ModelForm):
     class Meta:
@@ -26,6 +28,11 @@ class AdForm(forms.ModelForm):
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
 
+        if isinstance(start_date, datetime):
+            start_date = start_date.date() 
+        if isinstance(end_date, datetime):
+            end_date = end_date.date() 
+
         if category and category.type == 'sale' and price is None:
             raise ValidationError("Price is required for sale ads.")
 
@@ -40,11 +47,11 @@ class AdForm(forms.ModelForm):
             if start_date and end_date and start_date >= end_date:
                 raise ValidationError("End date must be after the start date.")
 
-            if start_date < timezone.now().date():
+            if start_date and start_date < timezone.now().date():
                 raise ValidationError("Start date cannot be in the past.")
-            if end_date < timezone.now().date():
+            if end_date and end_date < timezone.now().date():
                 raise ValidationError("End date cannot be in the past.")
-
+            
         return cleaned_data
 
 class AdImageForm(forms.ModelForm):

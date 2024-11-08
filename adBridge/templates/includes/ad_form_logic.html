@@ -14,7 +14,13 @@
             <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
                 {{ field.label }}
             </label>
-            {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
+            <input type="date" 
+                   name="{{ field.name }}" 
+                   id="{{ field.id_for_label }}" 
+                   value="{{ field.value|date:'d-m-Y' }}" 
+                   class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" 
+                   x-bind:value="startDateValue" 
+                   x-on:input="startDateValue = $event.target.value">
             <small class="text-gray-500" x-show="isEventsOrClasses" x-text="'Select event dates for your ' + selectedCategory"></small>
         </div>
     
@@ -36,3 +42,4 @@
         {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
     {% endif %}
 </div>
+
