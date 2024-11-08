@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-white flex items-center justify-center">
+    <div class="w-full max-w-sm p-8 bg-white shadow-xl rounded-xl">
+      <h1 class="text-4xl font-bold text-center text-blue-600 mb-6">
+        <a href="{% url 'homepage' %}">AdBridge</a>
+      </h1>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-6">Log in</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <button type="submit" class="w-full py-3 mt-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105">
+              Log in
+            </button>
+          </form>
+        </div>
+        <div class="card-footer text-center text-gray-600 mt-6">
+          <p class="text-sm">New to AdBridge? 
+            <a href="{% url 'signup' %}" class="text-blue-600 hover:underline">Sign up</a>
+          </p>
+        </div>
+      </div>
+      <div class="text-center py-4 mt-4">
+        <small>
+          <a href="{% url 'reset_password' %}" class="text-blue-600 hover:underline">Forgot your password? Reset it!</a>
+        </small>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
