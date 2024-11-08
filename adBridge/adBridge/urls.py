@@ -17,6 +17,7 @@ urlpatterns = [
     path('category/<int:pk>/', views.CategoryDetailView.as_view(), name='category-detail'),
     path("ads/", views.AdListView.as_view(), name="ad-list"),
     path('ad/<int:pk>/', views.AdDetailView.as_view(), name='ad-detail'),
+    path('ad/create/', views.AdCreateView.as_view(), name='ad_create'),
     path('featured', views.FeaturedView.as_view(), name="featured-ads"),
     path('reset/', auth_views.PasswordResetView.as_view(
         template_name='accounts/password_reset.html',

@@ -1,0 +1,38 @@
+{% load widget_tweaks %}
+
+<div>
+    {% if field.name == 'category' %}
+        <div x-model="selectedCategory" x-on:change="selectedCategory = $event.target.options[$event.target.selectedIndex].text">
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
+        </div>
+
+    {% elif field.name == 'start_date' or field.name == 'end_date' %}
+        <div x-show="isEventsOrClasses" x-transition>
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
+            <small class="text-gray-500" x-show="isEventsOrClasses" x-text="'Select event dates for your ' + selectedCategory"></small>
+        </div>
+    
+    {% elif field.name == 'price' %}
+        <div x-transition>
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                <span x-text="isJobsOrGigs ? 'Salary' : '{{ field.label }}'"></span>
+            </label>
+            {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
+            <small class="text-gray-500" x-show="isJobsOrGigs">
+                Please enter the price per month. (price / hour)
+            </small> 
+        </div>
+    
+    {% else %}
+        <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+            {{ field.label }}
+        </label>
+        {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
+    {% endif %}
+</div>
