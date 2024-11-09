@@ -138,9 +138,15 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
     context_object_name = 'profile'
-
+    
     def get_object(self):
         return Profile.objects.get(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_ads = Ad.objects.filter(user=self.get_object())
+        context['user_ads'] = user_ads
+        return context
     
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = Profile
