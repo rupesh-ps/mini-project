@@ -94,6 +94,14 @@
                         </li>
                         <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
                         <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
+                        <li>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'ad-create' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-blue-600 border rounded-md text-white hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-900 hover:ring-1 ring-blue-500/50 hover:text-white">
+                                    <i class="fas fa-plus-circle mr-3"></i> <!-- Font Awesome Plus Icon -->
+                                    <span>Post New Ad</span>
+                                </a>
+                            {% endif %}
+                        </li>
                     </ul>
                 </nav>
             </div>
