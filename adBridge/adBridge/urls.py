@@ -21,6 +21,8 @@ urlpatterns = [
     path('ad/<int:pk>/edit/', views.AdUpdateView.as_view(), name='ad-update'),
     path('ad/<int:pk>/delete/', views.AdDeleteView.as_view(), name='ad-delete'),
     path('featured', views.FeaturedView.as_view(), name="featured-ads"),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('profile/edit/', views.ProfileEditView.as_view(), name='profile-edit'),
     path('reset/', auth_views.PasswordResetView.as_view(
         template_name='accounts/password_reset.html',
         email_template_name='accounts/password_reset_email.html',

@@ -2,7 +2,7 @@ from django import forms
 from .models import Ad, AdImages, Category
 from django.forms import inlineformset_factory
 from django import forms
-from .models import Ad
+from .models import Ad, Profile
 from django.forms import ValidationError
 from django.utils import timezone
 from datetime import datetime
@@ -66,3 +66,8 @@ AdImagesFormSet = inlineformset_factory(
     extra=1,
     can_delete=True  
 )
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['phone', 'email']

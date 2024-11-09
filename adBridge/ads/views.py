@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Category, Ad
-from .forms import AdForm, AdImagesFormSet
+from .models import Category, Ad, Profile
+from .forms import AdForm, AdImagesFormSet, ProfileForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -133,3 +133,20 @@ class AdDeleteView(LoginRequiredMixin, DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('ad-list') 
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'accounts/profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+    
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'accounts/profile_update.html'
+    
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user)
+    
