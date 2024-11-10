@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from ..models import Profile, Category, Ad, Message, AdImages
+from django.forms import ValidationError
 
 class ProfileModelTest(TestCase):
     def setUp(self):
@@ -54,15 +55,15 @@ class AdModelTest(TestCase):
 
     def test_price_required_for_sale_ads(self):
         sale_category = Category.objects.create(name='Sale Category', type='sale')
-        sale_ad = Ad(user=self.profile, category=sale_category, title='Test Sale Ad', price=None)
-        with self.assertRaises(ValueError):
-            sale_ad.save()
+        sale_ad = Ad(user=self.profile, category=sale_category, title='Test Sale Ad', price=None, postal_code=12345)
+        with self.assertRaises(ValidationError):
+            sale_ad.full_clean()
 
     def test_contact_email_and_phone_required_for_job_ads(self):
         job_category = Category.objects.create(name='Job Category', type='job')
-        job_ad = Ad(user=self.profile, category=job_category, title='Test Job Ad')
-        with self.assertRaises(ValueError):
-            job_ad.save()
+        job_ad = Ad(user=self.profile, category=job_category, title='Test Job Ad', postal_code=12345)
+        with self.assertRaises(ValidationError):
+            job_ad.full_clean()
 
     def test_ad_str(self):
         self.assertEqual(str(self.ad), 'Test Ad Title (Category xyz)')
