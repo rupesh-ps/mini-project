@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
+from taggit.models import Tag
 
 class HomePageView(TemplateView):
     template_name = 'base.html'
@@ -39,13 +40,25 @@ class AdListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         search_query = self.request.GET.get('search')
+        tags = self.request.GET.get('tags')
+
         if search_query:
             queryset = queryset.filter(
                     title__icontains=search_query
             ).union(
                 queryset.filter(description__icontains=search_query)
             )
+
+        if tags:
+            tag_list = tags.split(",")
+            queryset = queryset.filter(tags__name__in=tag_list).distinct()
+
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class AdDetailView(DetailView):
     model = Ad
