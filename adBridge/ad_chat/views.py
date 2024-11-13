@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -91,4 +88,27 @@ def inbox(request):
 
     return render(request, 'ad_chat/inbox.html', {
         'chats': chats,
+    })
+
+@login_required
+def new_message(request):
+    user_profile = get_object_or_404(Profile, user=request.user)
+    ads = Ad.objects.exclude(user=user_profile)
+    if request.method == 'POST':
+        ad_id = request.POST.get('ad_id')
+        ad = get_object_or_404(Ad, id=ad_id)
+        buyer = get_object_or_404(Profile, user=request.user)
+        if ad.user == buyer.user:
+            messages.error(request, 'You cannot start a chat with yourself.')
+            return redirect('ads-list')
+        
+        seller = ad.user
+        chat, created = Chat.objects.get_or_create(ad=ad, buyer=buyer, seller=seller)
+        if created:
+            messages.success(request, 'Chat created successfully!')
+        else:
+            messages.info(request, 'You already have an ongoing chat with this seller.')
+        return redirect('ad_chat:chat_detail', chat_id=chat.id)
+    return render(request, 'ad_chat/new_message.html', {
+        'ads': ads,
     })
