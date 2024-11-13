@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl h-full mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <h1 class="text-4xl font-bold text-gray-900 mb-8">Your Inbox</h1>
+  <div class="space-y-6">
+    {% for chat in chats %}
+    <div class="bg-white rounded-xl p-6 flex justify-between items-center hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
+      <div class="flex items-center space-x-6">
+        <img src="/media/accounts/images/user_profile.png" alt="Buyer Profile" class="w-16 h-16 rounded-full border-2 border-teal-500">
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+            Chat with <span class="text-blue-500">{{ chat.buyer.user.username }}</span> for "{{ chat.ad.title }}"
+          </h3>
+          <p class="text-sm text-gray-500">Started on {{ chat.created_at|date:"M d, Y" }}</p>
+        </div>
+      </div>
+      <a href="{% url 'ad_chat:chat_detail' chat.id %}" class="text-teal-600 hover:text-teal-800 text-lg font-semibold flex items-center">
+        View Messages
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 text-center">You have no messages yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
