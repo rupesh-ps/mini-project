@@ -50,13 +50,13 @@
                     }" class="w-full max-w-xs flex flex-col gap-2">
                     <div class="relative">
                         <button type="button" role="combobox" class="inline-flex w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-neutral-600 bg-neutral-100 dark:bg-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-neutral-200 dark:hover:bg-zinc-600 focus:ring-2 focus:ring-sky-500 transition-all duration-200" aria-haspopup="listbox" aria-controls="tagsList" x-on:click="isOpen = ! isOpen" x-on:keydown.down.prevent="openedWithKeyboard = true" x-on:keydown.enter.prevent="openedWithKeyboard = true" x-on:keydown.space.prevent="openedWithKeyboard = true" x-bind:aria-label="setLabelText()" x-bind:aria-expanded="isOpen || openedWithKeyboard">
-                            <span x-text="setLabelText()" class="text-left overflow-hidden text-ellipsis whitespace-nowrap"></span>
+                            <span x-text="setLabelText()" class="w-28 text-left overflow-hidden text-ellipsis whitespace-nowrap md:w-60"></span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 transform transition-transform duration-200" :class="isOpen ? 'rotate-180' : ''">
                                 <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
                             </svg>
                         </button>
                         <input id="tags" name="tags" type="text" x-ref="hiddenTextField" hidden />
-                        <ul x-cloak x-show="isOpen || openedWithKeyboard" id="tagsList" class="absolute z-20 left-0 top-11 w-full max-h-44 flex flex-col overflow-y-auto py-2 border border-zinc-300 bg-white dark:bg-zinc-800 rounded-lg shadow-md dark:border-zinc-700 transition-all duration-300" role="listbox" x-on:click.outside="isOpen = false, openedWithKeyboard = false" x-on:keydown.down.prevent="$focus.wrap().next()" x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition x-trap="openedWithKeyboard">
+                        <ul x-cloak x-show="isOpen || openedWithKeyboard" id="tagsList" class="scrollbar absolute z-20 left-0 top-11 w-full max-h-44 flex flex-col overflow-x-hidden overflow-y-auto py-2 border border-zinc-300 bg-white dark:bg-zinc-800 rounded-lg shadow-md dark:border-zinc-700 transition-all duration-300" role="listbox" x-on:click.outside="isOpen = false, openedWithKeyboard = false" x-on:keydown.down.prevent="$focus.wrap().next()" x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition x-trap="openedWithKeyboard">
                             <template x-for="(item, index) in options" x-bind:key="item.value">
                                 <li role="option" class="relative">
                                     <label class="flex items-center gap-3 px-6 py-3 text-sm text-neutral-600 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-600 cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-50">
