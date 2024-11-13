@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-6">
-    <h1 class="text-3xl font-bold mb-6 text-blue-600">Featured Ads</h1>
+<div class="max-w-7xl mx-auto mt-8 px-4">
+    <h1 class="text-3xl font-bold mb-4 text-blue-700">Featured Ads</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for ad in featured_ads %}
             <div class="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl">
