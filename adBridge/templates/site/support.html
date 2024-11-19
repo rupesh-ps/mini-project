@@ -6,7 +6,7 @@
         <p class="text-lg text-black">We're here to help! Find answers to common questions or reach out to us for further assistance.</p>
     </header>
 
-    <section class="bg-white p-8 rounded-lg shadow-lg mb-8">
+    <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-8">
         <h3 class="text-3xl font-semibold mb-6">Frequently Asked Questions (FAQs)</h3>
         <ul class="space-y-6 text-gray-700">
             <li class="border-b pb-4">
@@ -32,7 +32,7 @@
         </ul>
     </section>
 
-    <section class="bg-white p-8 rounded-lg shadow-lg mb-8">
+    <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-8">
         <h3 class="text-3xl font-semibold mb-6">Contact Us</h3>
         <p class="text-gray-700">
             If you have any further questions or need additional support, feel free to reach out to our support team.
@@ -41,7 +41,7 @@
             You can contact us via email at <a href="mailto:support@adbridge.com" class="text-blue-600 hover:underline">support@adbridge.com</a> or use the contact form below.
         </p>
 
-        <div class="mt-6 bg-gray-50 p-8 rounded-lg border border-gray-200">
+        <div class="mt-6 bg-gray-50 p-4 sm:p-8 rounded-lg border border-gray-200">
             <h4 class="text-2xl font-semibold mb-4">Send Us a Message</h4>
             <form method="post" action="{% url 'support' %}" class="space-y-4">
                 {% csrf_token %}
