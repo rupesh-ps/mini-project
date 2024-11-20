@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
@@ -51,13 +50,6 @@ class Ad(models.Model):
     view = models.PositiveIntegerField(_("Total Views"), default=0)
     start_date = models.DateTimeField(_("Start Date"), null=True, blank=True)
     end_date = models.DateTimeField(_("End Date"), null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if self.category.type == 'sale' and self.price is None:
-            raise ValueError(_("Price is required for sale ads."))
-        if self.category.type == 'job' and (self.contact_email is None or self.contact_phone is None):
-            raise ValueError(_("Contact email and phone are required for job ads."))
-        super().save(*args, **kwargs)
           
     def __str__(self):
         return f"{self.title} ({self.category.name})"

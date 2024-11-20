@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AdBridge - Your Marketplace Awaits{% endblock title %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
@@ -44,7 +45,7 @@
                                         <div class="p-1 mt-1 bg-white border rounded-md shadow-md border-neutral-200/70 text-neutral-700">
                                             <div class="px-2 py-1.5 text-sm font-semibold">My Account</div>
                                             <div class="h-px my-1 -mx-1 bg-neutral-200"></div>
-                                            <a href="#_" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                            <a href="{% url 'profile' %}" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                 <span>Profile</span>
                                             </a>
@@ -93,6 +94,14 @@
                         </li>
                         <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
                         <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
+                        <li>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'ad-create' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-blue-600 border rounded-md text-white hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-900 hover:ring-1 ring-blue-500/50 hover:text-white">
+                                    <i class="fas fa-plus-circle mr-3"></i> <!-- Font Awesome Plus Icon -->
+                                    <span>Post New Ad</span>
+                                </a>
+                            {% endif %}
+                        </li>
                     </ul>
                 </nav>
             </div>
