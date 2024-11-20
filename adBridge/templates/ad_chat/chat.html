@@ -105,14 +105,8 @@
   function isAtBottom() {
     return messages.scrollHeight - messages.scrollTop === messages.clientHeight;
   }
-  function appendMessage() {
-    const message = document.getElementsByClassName('message')[0];
-    const newMessage = message.cloneNode(true);
-    messages.appendChild(newMessage);
-  }
   function getMessages() {
     const wasAtBottom = isAtBottom();
-    appendMessage();
     if (!wasAtBottom) {
       scrollToBottom();
     }
@@ -121,7 +115,6 @@
     messages.scrollTop = messages.scrollHeight;
   }
   scrollToBottom();
-  setInterval(getMessages, 1000);
 </script>
 
 {% endblock %}
