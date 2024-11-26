@@ -202,3 +202,6 @@ def support(request):
 
 def contact_success(request):
     return render(request, 'site/contact_success.html')
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
