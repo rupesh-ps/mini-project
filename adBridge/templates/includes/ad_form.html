@@ -34,7 +34,7 @@
         {% endif %}
         
         <!-- Field Container with Conditional Classes for Error States -->
-        <div :class="{'border-red-500': $refs.{{ field.id_for_label }}.classList.contains('error') }" class="relative">
+        <div :class="{'border-red-500': $refs.{{ field.id_for_label }}?.classList.contains('error') }" class="relative">
             {% include "includes/ad_form_logic.html" %}
             {% if field.help_text %}
                 <small class="text-gray-500 text-sm">{{ field.help_text }}</small>
@@ -52,41 +52,7 @@
 
         <div id="imageFieldsContainer">
             {% for image in image_form %}
-                <div class="mb-4 image-form" id="imageField-{{ forloop.counter }}">
-                    <div class="mb-3">
-                        <label for="id_images-{{ forloop.counter }}-image" class="block text-sm font-medium text-gray-700">Image:</label>
-                        <input type="file" name="images-{{ forloop.counter }}-image" accept="image/*" id="id_images-{{ forloop.counter }}-image"
-                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                            @change="previewImage($event, {{ forloop.counter }})">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="id_images-{{ forloop.counter }}-image_caption" class="block text-sm font-medium text-gray-700">Caption:</label>
-                        <input type="text" name="images-{{ forloop.counter }}-image_caption" maxlength="100" id="id_images-{{ forloop.counter }}-image_caption"
-                            value="{{ image.instance.image_caption }}" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="previewImage-{{ forloop.counter }}" class="block text-sm font-medium text-gray-700">Preview:</label>
-                        {% if image.instance.image %}
-                            <img id="previewImage-{{ forloop.counter }}" class="w-32 h-32 object-cover mt-2" src="{{ image.instance.image.url }}" alt="Image preview" />
-                        {% else %}
-                            <p>No image uploaded</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="mb-3 flex items-center">
-                        <button type="button" @click="removeImageField({{ forloop.counter }})"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                            Remove
-                        </button>
-                    </div>
-
-                    <div class="hidden">
-                        <input type="hidden" name="images-{{ forloop.counter }}-id" id="id_images-{{ forloop.counter }}-id" value="{{ image.instance.id }}">
-                        <input type="hidden" name="images-{{ forloop.counter }}-ad" id="id_images-{{ forloop.counter }}-ad" value="{{ image.instance.ad.id }}">
-                    </div>
-                </div>
+                
             {% endfor %}
         </div>
 
@@ -107,6 +73,7 @@
             imagePreview: [],
             selectedCategoryVal: '{{ form.category.value }}', 
             selectedCategory: '',
+            startDateValue: '',
 
             get isEventsOrClasses() {
                 return this.selectedCategory === 'Events' || this.selectedCategory === 'Classes';

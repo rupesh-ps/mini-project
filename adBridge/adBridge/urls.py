@@ -13,6 +13,8 @@ urlpatterns = [
     path("signup/", accounts_views.signup, name="signup"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("login/", auth_views.LoginView.as_view(template_name='accounts/login.html',redirect_authenticated_user=True), name="login"),
+    path('support/', views.support, name='support'),
+    path('contact-success/', views.contact_success, name='contact_success'),
     path('categories/', views.CategoryListView.as_view(), name='category-list'),
     path('category/<int:pk>/', views.CategoryDetailView.as_view(), name='category-detail'),
     path("ads/", views.AdListView.as_view(), name="ad-list"),

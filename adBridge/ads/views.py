@@ -1,10 +1,15 @@
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Category, Ad, Profile
-from .forms import AdForm, AdImagesFormSet, ProfileForm, AdImages
+from .forms import AdForm, AdImagesFormSet, ProfileForm, ContactForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
+from taggit.models import Tag
+
 class HomePageView(TemplateView):
     template_name = 'base.html'
 
@@ -35,13 +40,25 @@ class AdListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         search_query = self.request.GET.get('search')
+        tags = self.request.GET.get('tags')
+
         if search_query:
             queryset = queryset.filter(
                     title__icontains=search_query
             ).union(
                 queryset.filter(description__icontains=search_query)
             )
+
+        if tags:
+            tag_list = tags.split(",")
+            queryset = queryset.filter(tags__name__in=tag_list).distinct()
+
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class AdDetailView(DetailView):
     model = Ad
@@ -160,3 +177,31 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return Profile.objects.get(user=self.request.user)
     
+def support(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            
+            send_mail(
+                f"User {name} messaged via Contact Form",
+                message,
+                email,
+                [settings.CONTACT_EMAIL],
+                fail_silently=False,
+            )
+            
+            return redirect('contact_success') 
+        
+    else:
+        form = ContactForm()
+    
+    return render(request, 'site/support.html', {'form': form})
+
+def contact_success(request):
+    return render(request, 'site/contact_success.html')
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

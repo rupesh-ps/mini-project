@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AdBridge - Your Marketplace Awaits{% endblock title %}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-100">
     
     <div class="flex min-h-screen">
-        <aside class="w-64 bg-white shadow-lg">
-            <div class="p-6">
+        <aside class="w-28 bg-white shadow-lg sm:w-64">
+            <div class="p-2 sm:p-6">
                 <a href="{% url 'homepage' %}" class="block p-2 text-gray-800 hover:underline hover:underline-offset-2">
-                    <h1 class="text-3xl font-bold text-center text-blue-600">AdBridge</h1>
+                    <h1 class="text-xl font-bold text-center text-blue-600 sm:text-3xl">AdBridge</h1>
                 </a>
-                <p class="mt-1 text-center text-gray-600">Your bridge to buying and selling - anything!</p>
-                <nav class="mt-8">
+                <p class="mt-1 hidden text-center text-gray-600 sm:block">Your bridge to buying and selling - anything!</p>
+                <nav class="mt-4 sm:mt-8">
                     <ul class="space-y-3">
                         <li class="">
                             {% if user.is_authenticated %}
@@ -26,13 +29,13 @@
                                     }"
                                     class="relative">
 
-                                    <button @click="dropdownOpen=true" class="group inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none">
-                                        <img src="/media/accounts/images/user_profile.png" class="object-fit w-8 h-8 rounded-lg" />
-                                        <span class="flex flex-col items-start flex-shrink-0 h-full ml-2 leading-none translate-y-px">
+                                    <button @click="dropdownOpen=true" class="group inline-flex items-center justify-start h-10 sm:h-12 w-full py-2 pl-3 pr-12 text-xs sm:text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none">
+                                        <img src="/media/accounts/images/user_profile.png" class="object-fit size-5 rounded-lg sm:size-8" />
+                                        <span class="flex flex-col items-start flex-shrink-0 h-full mt-1 sm:mt-0 sm:ml-2 leading-none translate-y-px">
                                             <span> {{ user.username }}</span>
-                                            <span class="text-xs font-light text-neutral-400 group-hover:font-base group-hover:text-black group-focus:font-base group-focus:text-black">@{{ user.username }}</span>
+                                            <span class="hidden sm:block text-xs font-light text-neutral-400 group-hover:font-base group-hover:text-black group-focus:font-base group-focus:text-black">@{{ user.username }}</span>
                                         </span>
-                                        <svg class="absolute right-0 w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" /></svg>          
+                                        <svg class="absolute right-0 w-5 h-5 sm:mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" /></svg>          
                                     </button>
 
                                     <div x-show="dropdownOpen" 
@@ -40,9 +43,9 @@
                                         x-transition:enter="ease-out duration-200"
                                         x-transition:enter-start="-translate-y-2"
                                         x-transition:enter-end="translate-y-0"
-                                        class="absolute top-0 z-50 w-56 mt-12 -translate-x-1/2 left-1/2"
+                                        class="absolute top-0 z-50 w-28 sm:w-56 mt-12 -translate-x-1/2 left-1/2"
                                         x-cloak>
-                                        <div class="p-1 mt-1 bg-white border rounded-md shadow-md border-neutral-200/70 text-neutral-700">
+                                        <div class="sm:text-base text-xs p-1 mt-1 bg-white border rounded-md shadow-md border-neutral-200/70 text-neutral-700">
                                             <div class="px-2 py-1.5 text-sm font-semibold">My Account</div>
                                             <div class="h-px my-1 -mx-1 bg-neutral-200"></div>
                                             <a href="{% url 'profile' %}" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
@@ -97,6 +100,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <a href="{% url 'support' %}" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" x2="9.17" y1="4.93" y2="9.17"></line><line x1="14.83" x2="19.07" y1="14.83" y2="19.07"></line><line x1="14.83" x2="19.07" y1="9.17" y2="4.93"></line><line x1="14.83" x2="18.36" y1="9.17" y2="5.64"></line><line x1="4.93" x2="9.17" y1="19.07" y2="14.83"></line></svg>
+                                                <span>Support</span>
+                                            </a>
                                             <div class="h-px my-1 -mx-1 bg-neutral-200"></div>
                                             <form action="{% url 'logout' %}" method="post" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                                 {% csrf_token %}
@@ -112,13 +119,13 @@
                                 <p class="mt-4 text-gray-600">Hello, Guest! Please <a href="{% url 'login' %}" class="text-blue-600">sign in</a> to get started.</p>
                              {% endif %}    
                         </li>
-                        <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
-                        <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
+                        <li><a href="{% url 'category-list' %}" class="inline-flex items-center justify-start h-10 sm:h-12 w-full py-2 pl-3 pr-12 text-xs sm:text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Categories</a></li>
+                        <li><a href="{% url 'ad-list' %}" class="inline-flex items-center justify-start h-10 sm:h-12 w-full py-2 pl-3 pr-12 text-xs sm:text-sm font-medium transition-colors bg-white border rounded-md text-neutral-600 hover:bg-blue-100 active:bg-blue-200 focus:bg-blue-300 hover:ring-1 ring-blue-500/50 hover:text-black disabled:opacity-50 disabled:pointer-events-none">Ads</a></li>
                         <li>
                             {% if user.is_authenticated %}
-                                <a href="{% url 'ad-create' %}" class="inline-flex items-center justify-start h-12 w-full py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-blue-600 border rounded-md text-white hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-900 hover:ring-1 ring-blue-500/50 hover:text-white">
-                                    <i class="fas fa-plus-circle mr-3"></i> <!-- Font Awesome Plus Icon -->
-                                    <span>Post New Ad</span>
+                                <a href="{% url 'ad-create' %}" class="flex items-center justify-start h-10 sm:h-12 w-full py-2 pl-3 sm:pr-12 text-sm font-medium transition-colors bg-blue-600 border rounded-md text-white hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-900 hover:ring-1 ring-blue-500/50 hover:text-white">
+                                    <i class="hidden sm:block fas fa-plus-circle mr-3"></i> <!-- Font Awesome Plus Icon -->
+                                    <span class="text-xs flex-1">Post New Ad</span>
                                 </a>
                             {% endif %}
                         </li>
@@ -141,7 +148,12 @@
                 x-transition:leave-start="translate-y-0"
                 x-transition:leave-end="translate-y-10"
                 x-init="
-                    setTimeout(()=>{ bannerVisible = true }, bannerVisibleAfter);
+                    setTimeout(()=>{
+                        bannerVisible = true;
+                        setTimeout(()=>{
+                            bannerVisible = false;
+                        }, bannerVisibleAfter + 3000);
+                    }, bannerVisibleAfter);
                 "
                 class="fixed bottom-0 left-0 w-full h-auto py-2 duration-300 ease-out bg-black shadow-sm sm:py-0 sm:h-10" x-cloak>
                 <div class="flex items-center justify-between w-full h-full px-3 mx-auto max-w-7xl ">
@@ -196,16 +208,16 @@
                         }
                     }, 5);
                 "
-                class="invisible block pb-2 overflow-hidden text-5xl font-bold text-blue-900 custom-font"
+                class="invisible block pb-2 overflow-hidden text-3xl sm:text-5xl font-bold text-blue-900 custom-font"
                 >
                 Welcome to AdBridge!
                 </h1>
-                <p class="mt-2 text-xl text-black">The ultimate platform for seamless connections between buyers and sellers.</p>
+                <p class="mt-2 text-lg sm:text-xl text-black">The ultimate platform for seamless connections between buyers and sellers.</p>
             </header>
             
-            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
-                <h3 class="text-3xl font-semibold mb-4">Discover What We Offer</h3>
-                <ul class="mt-4 space-y-3 text-gray-600 list-none">
+            <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-3 sm:mb-6">
+                <h3 class="text-xl sm:text-3xl font-semibold mb-4">Discover What We Offer</h3>
+                <ul class="text-sm mt-4 space-y-3 text-gray-600 list-none">
                     <li>🌟 <b>Diverse Categories:</b> Explore an extensive range of categories tailored to your needs.</li>
                     <li>🔍 <b>Advanced Search:</b> Effortlessly find what you're looking for with our user-friendly search options.</li>
                     <li>💬 <b>Messaging System:</b> Connect directly with sellers through our secure messaging platform.</li>
@@ -214,20 +226,20 @@
                 </ul>
             </section>
 
-            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
-                <h3 class="text-3xl font-semibold mb-4">Join the Community!</h3>
-                <p class="mt-4 text-gray-600">
+            <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-3 sm:mb-6">
+                <h3 class="text-xl sm:text-3xl font-semibold mb-4">Join the Community!</h3>
+                <p class="text-sm mt-4 text-gray-600">
                     Sign up today to start posting ads or browsing listings that fit your lifestyle. Whether you’re searching for a job, selling your furniture, or hunting for rental properties, AdBridge is here to facilitate your journey.
                 </p>
-                <a href="{% url 'signup' %}" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
+                <a href="{% url 'signup' %}" class="text-sm mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">Get Started</a>
             </section>
 
-            <section class="bg-white p-8 rounded-lg shadow-lg mb-6">
-                <h3 class="text-3xl font-semibold mb-4">Why Choose Us?</h3>
-                <p class="mt-4 text-gray-600">
+            <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-3 sm:mb-6">
+                <h3 class="text-xl sm:text-3xl font-semibold mb-4">Why Choose Us?</h3>
+                <p class="text-sm mt-4 text-gray-600">
                     AdBridge connects you with a vibrant community of buyers and sellers, ensuring that your needs are met with the utmost satisfaction. Our platform is designed with you in mind, prioritizing security, accessibility, and user experience.
                 </p>
-                <a href="{% url 'ad-list' %}" class="mt-4 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition duration-300">Explore Ads</a>
+                <a href="{% url 'ad-list' %}" class="text-sm mt-4 inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition duration-300">Explore Ads</a>
             </section>
         {% endblock content %}
         {% include 'pagination.html' %}

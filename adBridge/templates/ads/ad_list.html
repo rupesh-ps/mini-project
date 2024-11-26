@@ -1,14 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Ads</h1>
+<div class="max-w-7xl mx-auto mt-8 px-4">
+    <h1 class="text-3xl font-bold mb-4">Ads</h1>
     
     <div class="mb-4">
-        <form method="GET" class="flex space-x-2">
-            <input type="text" name="search" placeholder="Search Ads..." class="border rounded-lg px-4 py-2 flex-1">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
-        </form>
+        <form method="GET" class="flex flex-wrap gap-2 justify-between items-center mb-6 p-1 bg-white shadow-lg rounded-lg border border-gray-200 dark:bg-zinc-800 dark:border-zinc-700 transition-all duration-300">
+            <div class="flex flex-1">
+                <input type="text" name="search" placeholder="Search Ads..." class="w-full border border-zinc-300 rounded-lg px-5 py-2 text-base text-neutral-700 placeholder:text-neutral-400 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-200 dark:placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-50 transition-all duration-200" />
+            </div>            
+            <div class="flex items-center gap-2 mt-2 sm:mt-0">
+                <div x-data="{
+                        options: [
+                            {% for tag in tags %}
+                                { value: '{{ tag.name }}', label: '{{ tag.name }}' },
+                            {% endfor %}
+                        ],
+                        isOpen: false,
+                        openedWithKeyboard: false,
+                        selectedOptions: [],
+                        setLabelText() {
+                            const count = this.selectedOptions.length;
+                            if (count === 0) return 'Select Tags';
+                            return this.selectedOptions.join(', ');
+                        },
+                        highlightFirstMatchingOption(pressedKey) {
+                            if (pressedKey === 'Enter') return;
+                            const option = this.options.find((item) =>
+                                item.label.toLowerCase().startsWith(pressedKey.toLowerCase()),
+                            );
+                            if (option) {
+                                const index = this.options.indexOf(option);
+                                const allOptions = document.querySelectorAll('.combobox-option');
+                                if (allOptions[index]) {
+                                    allOptions[index].focus();
+                                }
+                            }
+                        },
+                        handleOptionToggle(option) {
+                            if (option.checked) {
+                                this.selectedOptions.push(option.value);
+                            } else {
+                                this.selectedOptions = this.selectedOptions.filter(
+                                    (opt) => opt !== option.value,
+                                );
+                            }
+                            this.$refs.hiddenTextField.value = this.selectedOptions;
+                        },
+                    }" class="w-full max-w-xs flex flex-col gap-2">
+                    <div class="relative">
+                        <button type="button" role="combobox" class="inline-flex w-full items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-neutral-600 bg-neutral-100 dark:bg-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-neutral-200 dark:hover:bg-zinc-600 focus:ring-2 focus:ring-sky-500 transition-all duration-200" aria-haspopup="listbox" aria-controls="tagsList" x-on:click="isOpen = ! isOpen" x-on:keydown.down.prevent="openedWithKeyboard = true" x-on:keydown.enter.prevent="openedWithKeyboard = true" x-on:keydown.space.prevent="openedWithKeyboard = true" x-bind:aria-label="setLabelText()" x-bind:aria-expanded="isOpen || openedWithKeyboard">
+                            <span x-text="setLabelText()" class="w-28 text-left overflow-hidden text-ellipsis whitespace-nowrap md:w-60"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 transform transition-transform duration-200" :class="isOpen ? 'rotate-180' : ''">
+                                <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <input id="tags" name="tags" type="text" x-ref="hiddenTextField" hidden />
+                        <ul x-cloak x-show="isOpen || openedWithKeyboard" id="tagsList" class="scrollbar absolute z-20 left-0 top-11 w-full max-h-44 flex flex-col overflow-x-hidden overflow-y-auto py-2 border border-zinc-300 bg-white dark:bg-zinc-800 rounded-lg shadow-md dark:border-zinc-700 transition-all duration-300" role="listbox" x-on:click.outside="isOpen = false, openedWithKeyboard = false" x-on:keydown.down.prevent="$focus.wrap().next()" x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition x-trap="openedWithKeyboard">
+                            <template x-for="(item, index) in options" x-bind:key="item.value">
+                                <li role="option" class="relative">
+                                    <label class="flex items-center gap-3 px-6 py-3 text-sm text-neutral-600 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-600 cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-opacity-50">
+                                        <input type="checkbox" class="combobox-option hidden peer" x-on:change="handleOptionToggle($el)" x-on:keydown.enter.prevent="$el.checked = ! $el.checked; handleOptionToggle($el)" x-bind:value="item.value" x-bind:id="'checkboxOption' + index" />
+                                        <span x-text="item.label"></span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="4" class="pointer-events-none invisible absolute left-1 size-4 top-1/2 transform -translate-y-1/2 text-sky-500 peer-checked:visible dark:text-sky-400">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                                        </svg>
+                                    </label>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="px-4 sm:px-6 py-3 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg transition-all duration-200 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-500">
+                    Search
+                </button>
+            </div>
+        </form>        
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -38,7 +105,7 @@
         {% empty %}
         <p class="text-gray-500">
             {% if request.GET.search %}
-                No ads found for your search: '{{ request.GET.search }}'.
+                No ads found for your search: '{{ request.GET.search }}' .
             {% else %}
                 No ads available.
             {% endif %}

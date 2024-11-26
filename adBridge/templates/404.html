@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="my-8 text-center">
+        <h2 class="text-4xl font-extrabold text-blue-900 mb-2">Oops! Page Not Found</h2>
+        <p class="text-lg text-black text-center mx-6">We're sorry, but the page you are looking for does not exist. It may have been moved or deleted.</p>
+    </header>
+
+    <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-4">
+        <h3 class="text-3xl font-semibold mb-6">Why am I seeing this?</h3>
+        <ul class="space-y-2 text-gray-700">
+            <li class="pb-2">
+                <h4 class="text-xl font-semibold">The page may have been removed</h4>
+                <p class="mt-2 text-gray-600">Sometimes, pages get deleted or moved. If you think something's wrong, please contact us for support.</p>
+            </li>
+            <li class="pb-2">
+                <h4 class="text-xl font-semibold">Check for typos in the URL</h4>
+                <p class="mt-2 text-gray-600">Make sure the URL you entered is correct. Typos can easily cause a 404 error.</p>
+            </li>
+            <li class="pb-2">
+                <h4 class="text-xl font-semibold">Try visiting our homepage</h4>
+                <p class="mt-2 text-gray-600">You can always go back to the homepage and find the content you need.</p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-4">
+        <h3 class="text-3xl font-semibold mb-6">What You Can Do:</h3>
+        <p class="text-gray-700 mb-4">
+            If you can't find the page you're looking for, try one of the following:
+        </p>
+        <ul class="space-y-2 text-gray-700">
+            <li>🔍 <b>Use the search bar</b> to find specific content.</li>
+            <li>📜 <b>Browse the site</b> through our main navigation menu.</li>
+            <li>📝 <b>Contact support</b> if you need further assistance.</li>
+        </ul>
+    </section>
+
+    <section class="bg-white p-4 sm:p-8 rounded-lg shadow-lg mb-4">
+        <h3 class="text-3xl font-semibold mb-6">Go Back to Home</h3>
+        <p class="text-gray-700">
+            If you'd like to return to the homepage, you can easily go back by clicking the button below.
+        </p>
+        <div class="mt-6">
+            <a href="{% url 'homepage' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition duration-300">
+                Go Back to Home
+            </a>
+        </div>
+    </section>
+{% endblock %}
