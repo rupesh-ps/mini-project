@@ -61,12 +61,3 @@ class AdImages(models.Model):
 
     def __str__(self):
         return f"Image for {self.ad.title} with caption: {self.image_caption}"
-
-class Message(models.Model):
-    ad = models.ForeignKey(Ad, related_name='messages', on_delete=models.CASCADE)
-    message = models.TextField(_("Message"))
-    user = models.ForeignKey(Profile, related_name='messages', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
-
-    def __str__(self):
-        return f"Message from {self.user.user.username} regarding {self.ad.title}"
