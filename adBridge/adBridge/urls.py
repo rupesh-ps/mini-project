@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from ads import views
 from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
@@ -23,7 +23,6 @@ urlpatterns = [
     path('featured', views.FeaturedView.as_view(), name="featured-ads"),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/', views.ProfileEditView.as_view(), name='profile-edit'),
-    path('chat/', include('ad_chat.urls')),
     path('reset/', auth_views.PasswordResetView.as_view(
         template_name='accounts/password_reset.html',
         email_template_name='accounts/password_reset_email.html',
