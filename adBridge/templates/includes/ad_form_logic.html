@@ -9,7 +9,34 @@
             {% render_field field class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" %}
         </div>
 
-    {% elif field.name == 'start_date' or field.name == 'end_date' %}
+    {% elif field.name == 'description' %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            <input id="{{ field.id_for_label }}_input" type="hidden" name="{{ field.name }}" value="{{ field.value|default:'' }}">
+            <div id="blank-toolbar" hidden></div>
+            <trix-editor 
+                toolbar="blank-toolbar" 
+                input="{{ field.id_for_label }}_input" 
+                name="{{ field.name }}" 
+                id="{{ field.id_for_label }}" 
+                value="{{ field.value|default:'' }}">
+            </trix-editor>
+        </div>
+    
+
+    {% elif field.name == 'location' %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default:'' }}" 
+            class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" 
+            required="{{ field.field.required }}">
+        </div>
+    
+    {% elif field.name == 'start_date' %}
         <div x-show="isEventsOrClasses" x-transition>
             <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
                 {{ field.label }}
@@ -23,7 +50,23 @@
                    x-on:input="startDateValue = $event.target.value">
             <small class="text-gray-500" x-show="isEventsOrClasses" x-text="'Select event dates for your ' + selectedCategory"></small>
         </div>
-    
+
+    {% elif field.name == 'end_date' %}
+        <div x-show="isEventsOrClasses" x-transition>
+            <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ field.label }}
+            </label>
+            <input type="date" 
+                   name="{{ field.name }}" 
+                   id="{{ field.id_for_label }}" 
+                   value="{{ field.value|date:'d-m-Y' }}" 
+                   class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none" 
+                   x-bind:value="endDateValue" 
+                   x-on:input="endDateValue = $event.target.value">
+            <small class="text-gray-500" x-show="isEventsOrClasses" x-text="'Select event dates for your ' + selectedCategory"></small>
+        </div>
+
+        
     {% elif field.name == 'price' %}
         <div x-transition>
             <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
