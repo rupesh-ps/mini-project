@@ -15,7 +15,7 @@
                 {{ field.label }}
             </label>
             <input id="{{ field.id_for_label }}_input" type="hidden" name="{{ field.name }}" value="{{ field.value|default:'' }}">
-            <div id="blank-toolbar" hidden></div>
+            <div id="blank-toolbar"></div>
             <trix-editor 
                 toolbar="blank-toolbar" 
                 input="{{ field.id_for_label }}_input" 

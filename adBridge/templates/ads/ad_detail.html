@@ -110,6 +110,10 @@
             <!-- Additional Information -->
             <div class="p-6 bg-white rounded-lg shadow-md border border-gray-200">
                 <p class="font-semibold text-gray-800"><strong>Category:</strong> {{ ad.category.name }}</p>
+                {% if ad.category.name == "Events" or ad.category.name == "Classes" %}
+                    <p class="font-semibold text-gray-800"><strong>Start Date:</strong> {{ ad.start_date|date:"F j, Y" }}</p>
+                    <p class="font-semibold text-gray-800"><strong>End Date:</strong> {{ ad.end_date|date:"F j, Y" }}</p>
+                {% endif %}
                 <p class="font-semibold text-gray-800"><strong>Ad Posted By:</strong> {{ ad.user.user.username }}</p>
                 <p class="flex justify-end gap-1 text-gray-800"><strong>Views:</strong> {{ ad.view }}</p>
             </div>
