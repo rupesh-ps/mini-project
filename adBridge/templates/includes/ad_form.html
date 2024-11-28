@@ -71,9 +71,11 @@
         Alpine.data('imageForm', () => ({
             index: {{ image_form.management_form.TOTAL_FORMS.value }},
             imagePreview: [],
+            descriptionValue: '',
             selectedCategoryVal: '{{ form.category.value }}', 
             selectedCategory: '',
             startDateValue: '',
+            endDateValue: '',
 
             get isEventsOrClasses() {
                 return this.selectedCategory === 'Events' || this.selectedCategory === 'Classes';
