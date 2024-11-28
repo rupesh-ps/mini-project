@@ -4,7 +4,7 @@
 <div class="max-w-7xl mx-auto mt-8 px-4">
     <div class="bg-white rounded-lg shadow-lg p-6 relative">
         <h1 class="text-2xl font-bold my-4 md:my-2">{{ ad.title }}</h1>
-        <p class="mb-4 text-gray-700">{{ ad.description|safe }}</p>
+        <div class="description-box mb-4 px-3 text-gray-700">{{ ad.description|safe }}</div>
 
         {% if ad.tags %}
             <div class="absolute top-2 right-2 flex flex-wrap gap-1">

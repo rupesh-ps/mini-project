@@ -50,7 +50,7 @@
                     <div class="border-b border-gray-300 py-4 flex flex-col sm:flex-row gap-4 justify-between items-center">
                         <div class="w-full">
                             <h3 class="text-lg font-semibold text-gray-800">{{ ad.title }}</h3>
-                            <p class="text-sm text-gray-600">{{ ad.description|truncatewords:20 }}</p>
+                            <div class="description-box text-gray-600">{{ ad.description|safe|truncatewords_html:5 }}</div>
                             <p class="text-xs text-gray-400 mt-2">Posted on: {{ ad.posted_at|date:"M d, Y" }}</p>
                         </div>      
                         <div class="flex space-x-4 mt-4 sm:mt-0">

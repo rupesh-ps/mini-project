@@ -14,15 +14,8 @@
             <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
                 {{ field.label }}
             </label>
-            <input id="{{ field.id_for_label }}_input" type="hidden" name="{{ field.name }}" value="{{ field.value|default:'' }}">
-            <div id="blank-toolbar"></div>
-            <trix-editor 
-                toolbar="blank-toolbar" 
-                input="{{ field.id_for_label }}_input" 
-                name="{{ field.name }}" 
-                id="{{ field.id_for_label }}" 
-                value="{{ field.value|default:'' }}">
-            </trix-editor>
+            <textarea id="{{ field.id_for_label }}" name="{{ field.name }}" class="trix-content hidden">{{ field.value|default:"" }}</textarea>
+            <trix-editor input="{{ field.id_for_label }}" class="trix-editor border border-gray-300 rounded p-2 w-full list-disc list-inside"></trix-editor>
         </div>
     
 
